@@ -1,0 +1,90 @@
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: linear-gradient(45deg, #fff 50%, #e6e6e6 50%);
+}
+.form-container input{
+    border: 1px solid #d1d5db;
+    background-color: #f3f4f6;
+    margin-bottom: 20px;
+    height: 50px;
+    width: 600px;
+    padding: 5px 10px;
+    font-size: large;
+    line-height: 40px;
+    border-radius: 5px;
+}
+.form-container input:focus{
+    background-color: #f9fafb;
+}
+.errorMsg{
+    position: relative;
+    color: #fdba74;
+    top: -22px;
+    font-size: smaller;
+}
+.loginBtn, .registerBtn{
+    border: none;
+    margin-top: 20px;
+    background-color: #f97316;
+    color: #f3f4f6;
+    margin-bottom: 20px;
+    height: 50px;
+    width: 600px;
+    padding: 5px 10px;
+    font-size: large;
+    line-height: 40px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+form p{
+    top: 10px;
+    bottom: 10px;
+}
+form lable, input{
+    display: block;
+    margin: 0;
+}
+h4{
+    top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.links{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin: 20px 0;
+    gap: 20px;
+}
+.reg:hover{color: #f97316;}
+.log:hover{color: #f97316;}
+.reg, .log{
+    font-weight: 600;
+    color: royalblue;
+}
+.ssoBtns{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    top: 30px;
+}
+.ssoBtns .ssoBtn{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    line-height: 50px;
+    font-size: 25px;
+    background-color: transparent;
+    cursor: pointer;
+}
+.ssoBtn:hover{
+    transform: scale(1.1);
+}
