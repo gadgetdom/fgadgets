@@ -1,0 +1,140 @@
+a{
+    text-decoration: none;
+    color: #393A3E;
+}
+
+.product-list{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.product-preview{
+    display: inline-block;
+    flex-direction: column;
+    width: 260px;
+    height: auto;
+    padding: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-radius: 10px;
+    flex: 1 1 auto;
+    margin: 10px;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+}
+.product-preview:hover{
+    box-shadow: 0 0.97222vw 2.08333vw 0 rgba(0,0,0,0.15);
+}
+.product-preview img{
+    margin-left: 40%;
+    /* filter: drop-shadow(0 8px 8px #0009); */
+}
+.img-holder{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.product-preview p{
+    margin: 40px 0 20px 0;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: left;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+.product-preview .price{
+    margin-top: 20px;
+    font-size: 16px;
+    color: #393A3E;
+    letter-spacing: 3px;
+}
+.ratings{
+    text-align: left;
+    font-size: 18px;
+    margin-top: 20px;
+}
+.addToCart{
+    display: flex;
+    float: right;
+    bottom: 18%;
+    padding: 6px 15px;
+    background-color: #ffffff;
+    color: #393A3E;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 5px 10px rgba(25, 25, 25, 0.2);
+}
+.viewDetails{
+    border: none;
+    background-color: transparent;
+    color: royalblue;
+    margin-top: 15px;
+    cursor: pointer;
+}
+.viewDetails:hover{
+    font-weight: 600;
+}
+.addToCart:hover{
+    transform: scale(1.1);
+}
+.checked {
+    color: orange;
+}
+.brand-header{
+    position: absolute;
+    top: 25%;
+    text-transform: uppercase;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1515px){
+    .product-list{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .sidebar.closed {
+        top: 10%;
+        transform: translateX(100%);
+    }
+    .sidebar.open {
+        top: 10%;
+        z-index: 99999;
+        transform: translateX(0);
+    }
+    .sideBtn{
+        z-index: 99999;
+        display: block;
+    }
+    nav .menu{
+        display: flex;
+    }
+    nav{
+        flex-direction: column;
+        align-items: start;
+    }
+    nav ul{
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+    nav ul.open{
+        display: flex;
+    }
+    nav ul li{
+        width: 100%;
+        text-align: center;
+    }
+    nav ul li a{
+        margin: 0.2rem 0.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .product-list{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
