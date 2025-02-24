@@ -11,12 +11,12 @@ export const Home = () => {
         ? "http://localhost:8000"
         : "https://your-netlify-site.netlify.app"; // Replace with actual Netlify URL
 
-    useEffect(() => {
-        fetch(`${baseUrl}/products`)
-            .then(res => res.json())
-            .then(data => setProducts(data))
-            .catch(error => console.error("Error fetching products:", error));
-    }, []);
+        useEffect(() => {
+            fetch(`${baseUrl}/products`)
+                .then(res => res.json())
+                .then(data => setProducts(data))
+                .catch(error => console.error('Error fetching products:', error));
+        }, [baseUrl]);
 
     return ( 
         <>
