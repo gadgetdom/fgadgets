@@ -15,7 +15,7 @@ export const Home = () => {
             fetch(`${baseUrl}/products`)
                 .then(res => res.json())
                 .then(data => {
-                    const productList = data.products || data; // Handle different responses
+                    const productList = data.products || data; 
                     setProducts(Array.isArray(productList) ? productList : []);
                 })
                 .catch(error => console.error("Error fetching data:", error));
