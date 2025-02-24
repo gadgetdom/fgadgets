@@ -9,7 +9,7 @@ export const Home = () => {
     // Dynamically set API URL based on environment
     const baseUrl = process.env.NODE_ENV === "development"
         ? "http://localhost:8000"
-        : "https://your-netlify-site.netlify.app"; // Replace with actual Netlify URL
+        : "https://phylsgadgets.netlify.app/api";
 
         useEffect(() => {
             fetch(`${baseUrl}/products`)
