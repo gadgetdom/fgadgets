@@ -1,32 +1,22 @@
 const fs = require("fs");
 const path = require("path");
-const express = require("express");
 
-const app = express();
-const PORT = process.env.PORT || 8000;
+exports.handler = async (event, context) => {
+    const dbPath = path.join(__dirname, "db.json");
 
-const dbPath = path.join(__dirname, "db.json");
+    try {
+        const data = fs.readFileSync(dbPath, "utf8");
+        const jsonData = JSON.parse(data);
 
-// Middleware
-app.use(express.json());
-
-// Read db.json and serve it as an API
-app.get("/products", (req, res) => {
-    fs.readFile(dbPath, "utf8", (err, data) => {
-        if (err) {
-            console.error("Error reading db.json:", err);
-            return res.status(500).json({ error: "Internal Server Error" });
-        }
-        try {
-            const jsonData = JSON.parse(data); // ✅ Ensure JSON is valid
-            res.json(jsonData);
-        } catch (parseError) {
-            console.error("Error parsing JSON:", parseError);
-            res.status(500).json({ error: "Invalid JSON format in db.json" });
-        }
-    });
-});
-
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+        return {
+            statusCode: 200,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jsonData),
+        };
+    } catch (error) {
+        return {
+            statusCode: 500,
+            body: JSON.stringify({ error: "Error reading db.json" }),
+        };
+    }
+};
