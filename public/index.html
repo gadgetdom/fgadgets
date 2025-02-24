@@ -25,17 +25,6 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
     <title>React App</title>
-    <script>  
-      document.addEventListener("DOMContentLoaded", function () {  
-          fetch('https://phylsgadgets.netlify.app/json/db.json')  
-              .then(response => response.json())  
-              .then(data => {  
-                  console.log(data);  
-                  // Use the fetched data in your app  
-              })  
-              .catch(error => console.error('Error fetching data:', error));  
-      });  
-  </script>  
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
