@@ -1,12 +1,12 @@
 const fs = require("fs");
 const path = require("path");
 
-exports.handler = async (event, context) => {
-    // Use the correct path to db.json
-    const dbPath = path.join(__dirname, "./db.json");
-
+exports.handler = async () => {
     try {
-        // Read and parse the db.json file
+        // Correct file path to db.json inside Netlify functions
+        const dbPath = path.resolve(__dirname, "db.json");
+
+        // Read the file asynchronously
         const data = fs.readFileSync(dbPath, "utf8");
         const jsonData = JSON.parse(data);
 

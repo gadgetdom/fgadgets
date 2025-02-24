@@ -6,3 +6,6 @@
   from = "/api/products"
   to = "/.netlify/functions/server"
   status = 200
+
+[functions]
+  included_files = ["netlify/functions/db.json"]
