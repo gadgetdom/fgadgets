@@ -14,8 +14,11 @@ export const Home = () => {
         useEffect(() => {
             fetch(`${baseUrl}/products`)
                 .then(res => res.json())
-                .then(data => setProducts(data))
-                .catch(error => console.error('Error fetching products:', error));
+                .then(data => {
+                    const productList = data.products || data; // Handle different responses
+                    setProducts(Array.isArray(productList) ? productList : []);
+                })
+                .catch(error => console.error("Error fetching data:", error));
         }, [baseUrl]);
 
     return ( 
