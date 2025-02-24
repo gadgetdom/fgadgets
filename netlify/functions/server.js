@@ -3,7 +3,7 @@ const path = require("path");
 
 exports.handler = async (event, context) => {
     // Use the correct path to db.json
-    const dbPath = path.join(__dirname, "db.json");
+    const dbPath = path.join(__dirname, "./db.json");
 
     try {
         // Read and parse the db.json file
