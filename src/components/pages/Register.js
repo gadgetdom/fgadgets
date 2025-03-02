@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { FaFacebookF, FaApple, FaGoogle } from "react-icons/fa6";
+import {FaGoogle } from "react-icons/fa6";
 import './authentication.css';
-import { register, signInWithGoogle, signInWithFacebook, signInWithApple } from './firebase';
+import { register, signInWithGoogle } from './firebase';
 
 export default function Register() {
     const { register: formRegister, handleSubmit, formState: { errors } } = useForm();
@@ -21,7 +21,7 @@ export default function Register() {
 
     return (
         <div className="form-container">
-            <form ref={formRef} onSubmit={handleSubmit(onSubmit)} onKeyPress={handleKeypadClick}>
+            <form ref={formRef} onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeypadClick} className='register'>
                 <label>Full Name</label>
                 <input {...formRegister("username", { required: true })} />
                 {errors.username && <p className='errorMsg'>This field is required</p>}
@@ -52,19 +52,13 @@ export default function Register() {
 
                 <button type="submit" value="Register" className='registerBtn'>Register</button>
 
-                <p className='links'>Already have an account? <Link to="/login" className='log'>Login</Link></p>
-                <h4>Or</h4>
+                <h4>Or use Google</h4>
                 <div className='ssoBtns'>
                     <button className='ssoBtn' onClick={signInWithGoogle}>
                         <FaGoogle />
                     </button>
-                    <button className='ssoBtn' onClick={signInWithApple}>
-                        <FaApple />
-                    </button>
-                    <button className='ssoBtn' onClick={signInWithFacebook}>
-                        <FaFacebookF />
-                    </button>
                 </div>
+                <p className='links'>Already have an account? <Link to="/login" className='log'>Login</Link></p>
             </form>
         </div>
     );

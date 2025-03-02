@@ -1,9 +1,9 @@
     import React from 'react';
     import { useForm } from 'react-hook-form';
     import { Link } from 'react-router-dom';
-    import { FaFacebookF, FaApple, FaGoogle } from "react-icons/fa";
+    import { FaGoogle } from "react-icons/fa";
     import './authentication.css';
-    import { login, signInWithPhoneNumber, signInWithGoogle, signInWithFacebook, signInWithApple } from './firebase'; // Path to your firebase.js file
+    import { login, signInWithPhoneNumber, signInWithGoogle } from './firebase'; // Path to your firebase.js file
 
     export default function Login() {
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -46,21 +46,14 @@
             Login
             </button>
 
-            <p className='links'>Don't have an account? <Link to="/register" className='reg'>Register</Link></p>
-
-            <h4>Or</h4>
+            <h4>Or use Google</h4>
 
             <div className='ssoBtns'>
             <button className='ssoBtn' onClick={signInWithGoogle}>
                 <FaGoogle />
             </button>
-            <button className='ssoBtn' onClick={signInWithApple}>
-                <FaApple />
-            </button>
-            <button className='ssoBtn' onClick={signInWithFacebook}>
-                <FaFacebookF />
-            </button>
             </div>
+            <p className='links'>Don't have an account? <Link to="/register" className='reg'>Register</Link></p>
         </form>
         </div>
     );
