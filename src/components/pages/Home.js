@@ -8,7 +8,8 @@ export const Home = () => {
     const [selectedBrand, setSelectedBrand] = useState(null); // Add this line
 
     useEffect(() => {
-        fetch('https://phylsgadgets.netlify.app/json/db.json')
+        // fetch('https://phylsgadgets.netlify.app/json/db.json')
+        fetch('http://localhost:3000/db.json')
         .then(res => {
             return res.json();
         })

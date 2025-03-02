@@ -28,7 +28,7 @@ function ProductDetails( {rating} ) {
         
         // Fetch product data when the component mounts
             useEffect(() => {
-                fetch(`http://localhost:8000/products/${id}`)
+                fetch(`http://localhost:3000/products/${id}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data);  // Log the fetched data
