@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from "react";
-import { ProductList } from '../ProductList';
-import { SideBar } from '../SideBar';
+import { ProductList } from "../ProductList";
+import { SideBar } from "../SideBar";
 
 export const Home = () => {
-    const [products, setProducts] = useState(null);
+    const [products, setProducts] = useState([]);
     const [selectedBrand, setSelectedBrand] = useState(null);
 
-    // Dynamically set API URL based on environment
+    // Use correct API base URL (switch for local vs. production)
     const baseUrl = process.env.NODE_ENV === "development"
         ? "http://localhost:8000"
-        : "https://phylsgadgets.netlify.app/api";
+        : "https://your-json-server-url.com"; // Replace with actual backend URL
 
-        useEffect(() => {
-            fetch(`${baseUrl}/products`)
-                .then(res => res.json())
-                .then(data => {
-                    const productList = data.products || data; 
-                    setProducts(Array.isArray(productList) ? productList : []);
-                })
-                .catch(error => console.error("Error fetching data:", error));
-        }, [baseUrl]);
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const res = await fetch(`${baseUrl}/products`);
+                const data = await res.json();
+                setProducts(Array.isArray(data) ? data : []);
+            } catch (error) {
+                console.error("Error fetching products:", error);
+            }
+        };
+        fetchProducts();
+    }, [baseUrl]);
 
-    return ( 
+    return (
         <>
             <SideBar setSelectedBrand={setSelectedBrand} />
             <div className="home">
-                {products && <ProductList selectedBrand={selectedBrand} products={products} title="Available Products" />}
+                {products.length > 0 ? (
+                    <ProductList selectedBrand={selectedBrand} products={products} title="Available Products" />
+                ) : (
+                    <p>Loading products...</p>
+                )}
             </div>
         </>
     );
-}
+};

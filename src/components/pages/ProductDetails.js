@@ -1,82 +1,72 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import { BsFillStarFill, BsShare, BsChevronDoubleLeft } from "react-icons/bs";
-import { useCart } from '../CartContext';
+import { useCart } from "../CartContext";
 import "./ProductDetails.css";
 
-const ProductDetails = ({ rating }) => {
+const ProductDetails = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const { addToCart } = useCart();
     const [product, setProduct] = useState(null);
     const [mainImage, setMainImage] = useState("");
 
+    const baseUrl = process.env.NODE_ENV === "development"
+        ? "http://localhost:8000"
+        : "https://your-json-server-url.com"; // Replace with actual backend URL
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const response = await fetch(`http://localhost:8000/products/${id}`);
-                if (!response.ok) throw new Error("Product not found");
-                const data = await response.json();
+                const res = await fetch(`${baseUrl}/products/${id}`);
+                if (!res.ok) throw new Error("Product not found");
+                const data = await res.json();
                 setProduct(data);
-                setMainImage(data.image || "");
+                setMainImage(data.image); // Set default image
             } catch (error) {
                 console.error("Error fetching product:", error);
             }
         };
-
         fetchProduct();
-    }, [id]);
+    }, [id, baseUrl]);
 
-    if (!product) {
-        return <div className="loading-container">Loading product details...</div>;
-    }
-
-    const handleAddToCart = () => addToCart(product);
-    const handleImageClick = (event) => setMainImage(event.target.src);
+    if (!product) return <p>Loading product details...</p>;
 
     return (
         <div className="detail-container flex">
             <div className="details left">
-                <div className="main-image" style={{ width: '600px', height: '600px' }}>
+                <div className="main-image">
                     <img src={mainImage} alt={product.name} className="image slide" />
                 </div>
                 <div className="option flex">
-                    {[product.image1, product.image2, product.image3, product.image4, product.image5]
-                        .filter(Boolean)
-                        .map((img, index) => (
-                            <img key={index} className="optionImage" src={img} alt={`Option ${index + 1}`} onClick={handleImageClick} />
-                        ))}
+                    {[product.image1, product.image2, product.image3, product.image4, product.image5].map(
+                        (img, index) =>
+                            img && <img key={index} className="optionImage" src={img} alt={`Option ${index + 1}`} onClick={() => setMainImage(img)} />
+                    )}
                 </div>
             </div>
             <div className="right">
-                <div className="share"><BsShare /></div>
-                <button title="Back" className="backBtn" onClick={() => navigate(-1)}>
+                <div className="share">
+                    <BsShare />
+                </div>
+                <button type="button" title="Back" className="backBtn" onClick={() => window.history.back()}>
                     <BsChevronDoubleLeft />
                 </button>
                 <h2 className="productName">{product.name}</h2>
                 <p className="description">Description: {product.description}</p>
-                <h4>
-                    <p className="price"><span>NGN</span>{product.price}</p>
-                </h4>
-                <h5 className="col-head">Normal Color</h5>
-                <div className="color flex">
-                    {Array(6).fill().map((_, i) => <span key={i}></span>)}
-                </div>
+                <h4 className="price">NGN {product.price}</h4>
+
                 <div className="ratings">
                     {[...Array(5)].map((_, i) => (
-                        <BsFillStarFill key={i} color={i + 1 <= rating ? "teal" : "#fb923c"} />
+                        <BsFillStarFill key={i} color={i + 1 <= product.rating ? "teal" : "#fb923c"} />
                     ))}
                 </div>
-                <h5>Number</h5>
-                <div className="add flex1">
-                    <span>-</span>
-                    <label htmlFor="number of items">1</label>
-                    <span>+</span>
-                </div>
+
                 <div className="actionBtns">
-                    <button className="icon-cart addCart box-1" onClick={handleAddToCart}>Add To Cart</button>
+                    <button className="addCart" onClick={() => addToCart(product)}>
+                        Add To Cart
+                    </button>
                     <Link to="/checkout">
-                        <button className="buy box-2">Buy Now</button>
+                        <button className="buy">Buy Now</button>
                     </Link>
                 </div>
             </div>
