@@ -4,44 +4,27 @@ const fs = require("fs");
 const path = require("path");
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8000; // Dynamic port
 
-// Enable CORS (Allow frontend to fetch from backend)
 app.use(cors());
+app.use(express.json());
 
-// Read db.json and serve as API
+app.get("/", (req, res) => {
+    res.send("API is running..."); // Root endpoint to check if server is up
+});
+
 app.get("/products", (req, res) => {
     try {
-        const dbPath = path.join(__dirname, "db.json");
+        const dbPath = path.join(__dirname, "db.json"); // Ensure correct path
         const data = fs.readFileSync(dbPath, "utf8");
         const jsonData = JSON.parse(data);
-        res.json(jsonData.products); // Ensure we return the "products" array
+        res.json(jsonData.products);
     } catch (error) {
         console.error("Error reading db.json:", error);
-        res.status(500).json({ error: "Error reading db.json" });
+        res.status(500).json({ error: "Failed to load products" });
     }
 });
 
-// Route for single product details
-app.get("/products/:id", (req, res) => {
-    try {
-        const dbPath = path.join(__dirname, "db.json");
-        const data = fs.readFileSync(dbPath, "utf8");
-        const jsonData = JSON.parse(data);
-        
-        const product = jsonData.products.find(p => p.id == req.params.id);
-        if (!product) {
-            return res.status(404).json({ error: "Product not found" });
-        }
-        
-        res.json(product);
-    } catch (error) {
-        console.error("Error reading db.json:", error);
-        res.status(500).json({ error: "Error reading db.json" });
-    }
-});
-
-// Start the server
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
